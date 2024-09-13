@@ -1,0 +1,31 @@
+{
+  "name": "sparkmc.org",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "packageManager": "pnpm@9.10.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "check-types": "turbo check-types build",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "Hyro32",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^9.10.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.0.0",
+    "turbo": "^2.1.2"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx,astro}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  }
+}
