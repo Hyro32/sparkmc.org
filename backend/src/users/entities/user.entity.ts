@@ -28,10 +28,10 @@ export class User {
   discordId?: string;
 
   @Column({ default: false })
-  isGithubAcount: boolean;
+  isGithubAccount: boolean;
 
   @Column({ default: false })
-  isDiscordAcount: boolean;
+  isDiscordAccount: boolean;
 
   @OneToMany(() => Resource, (resource) => resource.id)
   resources?: Resource[];

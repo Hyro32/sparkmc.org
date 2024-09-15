@@ -18,6 +18,8 @@ import * as Joi from 'joi';
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_NAME: Joi.string().required(),
+        APPWRITE_PROJECT_ID: Joi.string().required(),
+        BUCKET_ID: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRootAsync({

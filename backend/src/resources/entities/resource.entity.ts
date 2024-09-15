@@ -9,8 +9,14 @@ export class Resource {
   @OneToOne(() => User, (user) => user.id)
   authorId: number;
 
+  @Column()
+  type: string;
+
   @Column({ unique: true })
   name: string;
+
+  @Column()
+  icon: string;
 
   @Column()
   description: string;
