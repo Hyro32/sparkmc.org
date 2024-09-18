@@ -1,0 +1,22 @@
+---
+import TypeLayout from "@layouts/TypeLayout.astro";
+import type { GetStaticPaths } from "astro";
+
+export const prerender = true;
+export const getStaticPaths = (() => {
+  return [
+    { params: { type: "mods" } },
+    { params: { type: "plugins" } },
+    { params: { type: "shaders" } },
+    { params: { type: "resource-packs" } },
+    { params: { type: "data-packs" } },
+    { params: { type: "mod-packs" } },
+  ];
+}) satisfies GetStaticPaths;
+
+const { type } = Astro.params;
+---
+
+<TypeLayout {type}>
+  <h1>{type}</h1>
+</TypeLayout>

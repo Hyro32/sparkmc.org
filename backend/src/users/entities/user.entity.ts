@@ -19,9 +19,6 @@ export class User {
   avatar?: string;
 
   @Column()
-  avatar_public_id?: string;
-
-  @Column()
   githubId?: string;
 
   @Column()

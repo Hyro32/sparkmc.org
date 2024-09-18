@@ -60,7 +60,19 @@ export class UsersService {
     return this.usersRepository.findOneBy({ username });
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<unknown> {
+  findOneByGithubId(githubId: string): Promise<User> {
+    return this.usersRepository.findOneBy({ githubId });
+  }
+
+  findOneByDiscordId(discordId: string): Promise<User> {
+    return this.usersRepository.findOneBy({ discordId });
+  }
+
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+    avatar: Express.Multer.File,
+  ): Promise<unknown> {
     const { email, username } = updateUserDto;
     const findEmail = this.findOneByEmail(email);
     const findUsername = this.findOneByUsername(username);
@@ -69,7 +81,13 @@ export class UsersService {
       throw new BadRequestException('User already exists');
     }
 
-    // TODO: update avatar
+    const user = await this.findOneById(id);
+
+    if (avatar) {
+      if (user.avatar) await this.bucketsService.delete(user.avatar);
+      const avatarBucket = await this.bucketsService.upload(avatar);
+      updateUserDto.avatar = avatarBucket;
+    }
 
     return this.usersRepository.update(id, updateUserDto);
   }
@@ -77,5 +95,24 @@ export class UsersService {
   async remove(id: number): Promise<unknown> {
     // TODO: remove resources and buckets
     return this.usersRepository.delete(id);
+  }
+
+  async generateUniqueUsername(username: string): Promise<string> {
+    let newUsername = username;
+    let count = 1;
+    let isUnique = false;
+
+    while (!isUnique) {
+      const user = await this.findOneByUsername(newUsername);
+
+      if (!user) {
+        isUnique = true;
+      } else {
+        newUsername = `${username}${count}`;
+        count++;
+      }
+    }
+
+    return newUsername;
   }
 }

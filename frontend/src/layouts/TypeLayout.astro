@@ -1,0 +1,11 @@
+---
+import Layout from "./Layout.astro";
+
+interface Props {
+  type: string;
+}
+
+const { type } = Astro.props;
+---
+
+<Layout title={`Search ${type.replace("-", " ")} - Sparkmc`} />

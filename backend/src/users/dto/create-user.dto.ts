@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
@@ -11,12 +11,19 @@ export class CreateUserDto {
   username: string;
 
   @IsString()
+  @IsOptional()
   @Transform(({ value }) => value.toLowerCase().trim())
-  password: string;
+  password?: string;
 
   @IsString()
+  @IsOptional()
+  avatar?: string;
+
+  @IsString()
+  @IsOptional()
   githubId?: string;
 
   @IsString()
+  @IsOptional()
   discordId?: string;
 }
