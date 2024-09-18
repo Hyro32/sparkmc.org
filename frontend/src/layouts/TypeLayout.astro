@@ -1,4 +1,6 @@
 ---
+import ResourceCard from "@components/ResourceCard.astro";
+import AdCard from "@components/AdCard.astro";
 import Layout from "./Layout.astro";
 
 interface Props {
@@ -6,6 +8,69 @@ interface Props {
 }
 
 const { type } = Astro.props;
+
+const resources: Resource[] = [
+  {
+    id: 1,
+    authorId: 1,
+    type: "mod",
+    name: "Resource Pack",
+    icon: "https://hangarcdn.papermc.io/avatars/project/400.webp?v=3",
+    description: "A resource pack that changes the look of Minecraft.",
+    downloads: 100,
+    categories: ["Texture Pack", "Realistic"],
+    files: [
+      "https://via.placeholder.com/150",
+      "https://via.placeholder.com/150",
+    ],
+    versions: ["1.17", "1.16", "1.15"],
+    created_at: new Date(),
+  },
+  {
+    id: 2,
+    authorId: 1,
+    type: "mod",
+    name: "Data Pack",
+    icon: "https://hangarcdn.papermc.io/avatars/project/245.webp?v=3",
+    description: "A data pack that changes the gameplay of Minecraft.",
+    downloads: 100,
+    categories: ["Gameplay"],
+    files: [
+      "https://via.placeholder.com/150",
+      "https://via.placeholder.com/150",
+    ],
+    versions: ["1.17", "1.16", "1.15"],
+    created_at: new Date(),
+  },
+  {
+    id: 3,
+    authorId: 1,
+    type: "mod",
+    name: "Mod Pack",
+    icon: "https://hangarcdn.papermc.io/avatars/project/31.webp?v=1",
+    description: "A collection of mods that changes the gameplay of Minecraft.",
+    downloads: 100,
+    categories: ["Gameplay"],
+    files: [
+      "https://via.placeholder.com/150",
+      "https://via.placeholder.com/150",
+    ],
+    versions: ["1.17", "1.16", "1.15"],
+    created_at: new Date(),
+  },
+];
 ---
 
-<Layout title={`Search ${type.replace("-", " ")} - Sparkmc`} />
+<Layout title={`Search ${type.replace("-", " ")} - Sparkmc`}>
+  <div class="flex items-start justify-between w-full gap-8 py-8">
+    <div class="flex flex-col w-1/4 gap-8">
+      <AdCard />
+    </div>
+    <div class="flex flex-col w-3/4 gap-8">
+      {/* Search bar + filters */}
+      <ul class="flex flex-col gap-4 w-full">
+        {resources.map((resource) => <ResourceCard {resource} />)}
+      </ul>
+    </div>
+  </div>
+</Layout>

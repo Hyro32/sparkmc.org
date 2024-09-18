@@ -1,0 +1,58 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  resource: Resource;
+}
+
+const { resource } = Astro.props;
+
+const author = "Hyro32"; // TODO: Get author from API
+---
+
+<a
+  href={`${resource.type}/${resource.name}`}
+  class="flex items-center justify-between p-3 border border-gray-400 rounded-lg shadow-lg duration-300 hover:scale-105"
+>
+  <div class="flex items-start gap-4">
+    <img
+      src={resource.icon}
+      alt={resource.name}
+      class="w-20 h-20 object-cover rounded-lg"
+    />
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-col">
+        <div class="flex items-center gap-2">
+          <h3 class="text-lg font-semibold">{resource.name}</h3>
+          <div class="text-sm text-gray-500">
+            by <span class="text-blue-500 font-semibold">{author}</span>
+          </div>
+        </div>
+        <p class="text-sm text-gray-500">{resource.description}</p>
+      </div>
+      <ul class="flex items-center gap-2">
+        {
+          resource.categories.map((category) => (
+            <span class="text-center text-xs px-2 py-1 rounded-full bg-gray-300">
+              {category}
+            </span>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="flex flex-col justify-between text-sm">
+    <div class="flex items-center gap-2">
+      <Icon name="mingcute:download-2-line" />
+      {resource.downloads} downloads
+    </div>
+    <div class="flex items-center gap-2">
+      <Icon name="mingcute:heart-line" />
+      12 likes
+    </div>
+    <div class="flex items-center gap-2">
+      <Icon name="mingcute:calendar-line" />
+      {resource.created_at.toLocaleDateString().replaceAll("/", "-")}
+    </div>
+  </div>
+</a>
