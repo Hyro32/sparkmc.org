@@ -18,6 +18,9 @@ export class User {
   @Column()
   avatar?: string;
 
+  @OneToMany(() => Resource, (resource) => resource.url)
+  likes?: Resource[];
+
   @Column()
   githubId?: string;
 
@@ -30,6 +33,6 @@ export class User {
   @Column({ default: false })
   isDiscordAccount: boolean;
 
-  @OneToMany(() => Resource, (resource) => resource.id)
+  @OneToMany(() => Resource, (resource) => resource.url)
   resources?: Resource[];
 }

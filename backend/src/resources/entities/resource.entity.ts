@@ -1,37 +1,49 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 
 @Entity()
 export class Resource {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  url: string;
 
-  @OneToOne(() => User, (user) => user.id)
-  authorId: number;
+  @OneToOne(() => User, (user) => user.username)
+  author: string;
 
   @Column()
   type: string;
 
-  @Column({ unique: true })
-  name: string;
-
   @Column()
-  icon: string;
+  title: string;
 
   @Column()
   description: string;
 
-  @Column({ default: 0 })
+  @OneToMany(() => User, (user) => user.username)
+  likes?: User[];
+
+  @Column()
   downloads: number;
 
   @Column()
-  categories: string[];
+  about: string;
 
   @Column()
-  files: string[];
+  icon?: string;
 
   @Column()
-  versions: string[];
+  tags: string[];
+
+  @Column()
+  api_version: string;
+
+  @Column()
+  source?: string;
+
+  @Column()
+  support?: string;
+
+  @Column({ default: new Date() })
+  updated_at: Date;
 
   @Column({ default: new Date() })
   created_at: Date;

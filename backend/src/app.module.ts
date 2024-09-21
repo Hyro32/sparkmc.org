@@ -3,7 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { BucketsModule } from './buckets/buckets.module';
-import { CachingModule } from './caching/caching.module';
 import { PaymentsModule } from './payments/payments.module';
 import { ResourcesModule } from './resources/resources.module';
 import { UsersModule } from './users/users.module';
@@ -38,7 +37,6 @@ import * as Joi from 'joi';
     }),
     AuthModule,
     BucketsModule,
-    CachingModule,
     PaymentsModule,
     ResourcesModule,
     UsersModule,

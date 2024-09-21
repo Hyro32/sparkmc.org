@@ -2,8 +2,31 @@
 import ResourceLayout from "@layouts/ResourceLayout.astro";
 
 const { name } = Astro.params;
+
+const resource = {
+  url: "via-version",
+  author: "Myles",
+  type: "plugin",
+  title: "ViaVersion",
+  description:
+    "A plugin that allows newer versions of Minecraft to connect to older servers.",
+  likes: ["a", "b", "c"],
+  downloads: 1200000,
+  about: "a",
+  icon: "https://hangarcdn.papermc.io/avatars/project/31.webp?v=1",
+  tags: ["plugin", "bukkit", "spigot"],
+  api_version: "1.17",
+  support: "https://viaversion.com",
+  source: "https://viaversion.com",
+  created_at: new Date(),
+  updated_at: new Date(),
+};
+
+const user = {
+  username: "Myles",
+  avatar:
+    "https://crafatar.com/avatars/2f8f4f4c-0e3f-4c39-9b3d-7f4e4e6f6f4b?size=128",
+};
 ---
 
-<ResourceLayout>
-  <h1>{name}</h1>
-</ResourceLayout>
+<ResourceLayout {resource} {user} />

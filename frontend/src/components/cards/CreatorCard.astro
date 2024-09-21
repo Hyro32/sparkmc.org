@@ -1,0 +1,19 @@
+---
+interface Props {
+  user: any;
+}
+
+const { user } = Astro.props;
+---
+
+<div class="flex flex-col gap-2 p-3 bg-neutral-100 rounded-lg">
+  <h4 class="text-lg font-semibold">Creator</h4>
+  <a href={`/${user.username}`} class="flex items-center gap-2">
+    <img
+      src={user.avatar}
+      alt={user.username}
+      class="w-8 h-8 object-contain rounded-full"
+    />
+    <p>{user.username}</p>
+  </a>
+</div>

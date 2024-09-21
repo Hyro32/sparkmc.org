@@ -1,5 +1,25 @@
 ---
+import ResourceHead from "@components/resource/ResourceHead.astro";
+import ResourceAbout from "@components/resource/ResourceAbout.astro";
+import CreatorCard from "@components/cards/CreatorCard.astro";
+import AdCard from "@components/cards/AdCard.astro";
 import Layout from "./Layout.astro";
+
+interface Props {
+  resource: any;
+  user: any;
+}
+
+const { resource, user } = Astro.props;
 ---
 
-<Layout title="Resource - Sparkmc" />
+<Layout title="Resource - Sparkmc">
+  <ResourceHead {resource} />
+  <div class="flex items-start justify-between w-full gap-4 py-8">
+    <ResourceAbout about={resource.about} />
+    <div class="flex flex-col w-1/4 gap-4">
+      <AdCard />
+      <CreatorCard {user} />
+    </div>
+  </div>
+</Layout>
