@@ -28,7 +28,7 @@ const { resource } = Astro.props;
         </span>
         <span class="flex items-center gap-2">
           <Icon name="mingcute:heart-line" class="text-red-500" />
-          {integerSuffix(resource.likes.length)}
+          {integerSuffix(resource.likes?.length!)}
         </span>
       </div>
     </div>

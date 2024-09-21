@@ -21,7 +21,7 @@ export class UsersService {
     const isGithubAccount = Boolean(githubId);
     const isDiscordAccount = Boolean(discordId);
     const findEmail = this.findOneByEmail(email);
-    const findUsername = this.findOneByUsername(username);
+    const findUsername = this.findOne(username);
 
     if (findEmail || findUsername) {
       throw new BadRequestException('User already exists');
@@ -48,16 +48,12 @@ export class UsersService {
     });
   }
 
-  findOneById(id: number): Promise<User> {
-    return this.usersRepository.findOneBy({ id });
+  findOne(username: string): Promise<User> {
+    return this.usersRepository.findOneBy({ username });
   }
 
   findOneByEmail(email: string): Promise<User> {
     return this.usersRepository.findOneBy({ email });
-  }
-
-  findOneByUsername(username: string): Promise<User> {
-    return this.usersRepository.findOneBy({ username });
   }
 
   findOneByGithubId(githubId: string): Promise<User> {
@@ -69,19 +65,18 @@ export class UsersService {
   }
 
   async update(
-    id: number,
+    username: string,
     updateUserDto: UpdateUserDto,
     avatar: Express.Multer.File,
   ): Promise<unknown> {
-    const { email, username } = updateUserDto;
-    const findEmail = this.findOneByEmail(email);
-    const findUsername = this.findOneByUsername(username);
+    const findEmail = this.findOneByEmail(updateUserDto.email);
+    const findUsername = this.findOne(username);
 
     if (findEmail || findUsername) {
       throw new BadRequestException('User already exists');
     }
 
-    const user = await this.findOneById(id);
+    const user = await this.findOne(username);
 
     if (avatar) {
       if (user.avatar) await this.bucketsService.delete(user.avatar);
@@ -89,12 +84,12 @@ export class UsersService {
       updateUserDto.avatar = avatarBucket;
     }
 
-    return this.usersRepository.update(id, updateUserDto);
+    return this.usersRepository.update(username, updateUserDto);
   }
 
-  async remove(id: number): Promise<unknown> {
+  async remove(username: string): Promise<unknown> {
     // TODO: remove resources and buckets
-    return this.usersRepository.delete(id);
+    return this.usersRepository.delete(username);
   }
 
   async generateUniqueUsername(username: string): Promise<string> {
@@ -103,7 +98,7 @@ export class UsersService {
     let isUnique = false;
 
     while (!isUnique) {
-      const user = await this.findOneByUsername(newUsername);
+      const user = await this.findOne(newUsername);
 
       if (!user) {
         isUnique = true;

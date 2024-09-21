@@ -28,9 +28,7 @@ export class DiscordStrategy extends PassportStrategy(Strategy) {
 
     if (user) return done(null, user);
 
-    const usernameTaken = await this.usersService.findOneByUsername(
-      profile.username,
-    );
+    const usernameTaken = await this.usersService.findOne(profile.username);
 
     if (usernameTaken) {
       profile.username = await this.usersService.generateUniqueUsername(

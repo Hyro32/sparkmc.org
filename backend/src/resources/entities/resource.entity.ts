@@ -30,7 +30,7 @@ export class Resource {
   @Column()
   icon?: string;
 
-  @Column()
+  @Column('simple-array')
   tags: string[];
 
   @Column()

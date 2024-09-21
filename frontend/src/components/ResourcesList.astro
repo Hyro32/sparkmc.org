@@ -1,0 +1,19 @@
+---
+import ResourceCard from "./cards/ResourceCard.astro";
+import { getAllResources } from "@services/SparkAPI";
+
+interface Props {
+  type: string;
+}
+
+const { type } = Astro.props;
+
+const response = await getAllResources();
+const resources: Resource[] = response.data.filter(
+  (res: Resource) => res.type === type,
+);
+---
+
+<ul class="flex flex-col gap-4 w-full">
+  {resources.map((resource) => <ResourceCard {resource} />)}
+</ul>

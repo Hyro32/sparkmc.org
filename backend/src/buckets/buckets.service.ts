@@ -1,11 +1,11 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import sdk, { ID } from 'node-appwrite';
+import { Client, Storage, ID } from 'node-appwrite';
 
 @Injectable()
 export class BucketsService implements OnModuleInit {
-  private readonly client = new sdk.Client();
-  private readonly buckets = new sdk.Storage(this.client);
+  private readonly client = new Client();
+  private readonly buckets = new Storage(this.client);
 
   constructor(private readonly config: ConfigService) {}
 

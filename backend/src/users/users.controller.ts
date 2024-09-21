@@ -31,9 +31,9 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOneById(+id);
+  @Get(':username')
+  findOne(@Param('username') username: string) {
+    return this.usersService.findOne(username);
   }
 
   @Get(':email')
@@ -41,10 +41,10 @@ export class UsersController {
     return this.usersService.findOneByEmail(email);
   }
 
-  @Patch(':id')
+  @Patch(':username')
   @UseInterceptors(FileInterceptor('avatar'))
   update(
-    @Param('id') id: string,
+    @Param('username') username: string,
     @Body() updateUserDto: UpdateUserDto,
     @UploadedFile(
       new ParseFilePipe({
@@ -56,11 +56,11 @@ export class UsersController {
     )
     avatar: Express.Multer.File,
   ) {
-    return this.usersService.update(+id, updateUserDto, avatar);
+    return this.usersService.update(username, updateUserDto, avatar);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @Delete(':username')
+  remove(@Param('username') username: string) {
+    return this.usersService.remove(username);
   }
 }

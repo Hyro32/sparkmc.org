@@ -1,5 +1,5 @@
 ---
-import ResourceCard from "@components/cards/ResourceCard.astro";
+import ResourcesList from "@components/ResourcesList.astro";
 import AdCard from "@components/cards/AdCard.astro";
 import Layout from "./Layout.astro";
 
@@ -8,8 +8,6 @@ interface Props {
 }
 
 const { type } = Astro.props;
-
-const resources: Resource[] = [];
 ---
 
 <Layout title={`Search ${type.replace("-", " ")} - Sparkmc`}>
@@ -19,9 +17,7 @@ const resources: Resource[] = [];
     </div>
     <div class="flex flex-col w-3/4 gap-8">
       {/* Search bar + filters */}
-      <ul class="flex flex-col gap-4 w-full">
-        {resources.map((resource) => <ResourceCard {resource} />)}
-      </ul>
+      <ResourcesList {type} />
     </div>
   </div>
 </Layout>

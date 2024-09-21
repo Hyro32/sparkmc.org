@@ -1,16 +1,13 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { Resource } from 'src/resources/entities/resource.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn({ unique: true })
+  username: string;
 
   @Column({ unique: true })
   email: string;
-
-  @Column({ unique: true })
-  username: string;
 
   @Column()
   password?: string;
