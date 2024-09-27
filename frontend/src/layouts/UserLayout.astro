@@ -1,0 +1,51 @@
+---
+import { integerSuffix } from "@utils/integerSuffix";
+import { Icon } from "astro-icon/components";
+import PageHead from "@components/common/PageHead.astro";
+import AdCard from "@components/cards/AdCard.astro";
+import ResourceCard from "@components/cards/ResourceCard.astro";
+import Layout from "./Layout.astro";
+
+interface Props {
+  title: string;
+  user: User;
+}
+
+const { title, user } = Astro.props;
+
+const totalDownloads = user.resources?.reduce(
+  (acc, resource) => acc + resource.downloads,
+  0,
+);
+---
+
+<Layout {title}>
+  <PageHead title={user.username} image={user.avatar}>
+    <span class="flex items-center gap-2" slot="info">
+      <Icon name="mingcute:box-3-line" class="text-orange-600" />
+      {integerSuffix(user.resources?.length ?? 0)}
+      resources
+    </span>
+    <span class="flex items-center gap-2" slot="info">
+      <Icon name="mingcute:download-2-line" class="text-green-500" />
+      {integerSuffix(totalDownloads ?? 0)}
+      downloads
+    </span>
+  </PageHead>
+  <div class="flex items-start justify-between w-full gap-4 py-8">
+    {
+      user.resources ? (
+        <ul class="flex flex-col gap-4 w-3/4">
+          {user.resources?.map((resource) => (
+            <ResourceCard {resource} />
+          ))}
+        </ul>
+      ) : (
+        <p class="text-gray-400">No resources found</p>
+      )
+    }
+    <div class="flex flex-col w-1/4 gap-4">
+      <AdCard />
+    </div>
+  </div>
+</Layout>

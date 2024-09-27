@@ -1,0 +1,31 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  resourceUrl: string;
+}
+
+const { resourceUrl } = Astro.props;
+---
+
+<download-button data-resourceUrl={resourceUrl}>
+  <button class="flex items-center gap-2 px-4 py-3 bg-neutral-800 rounded-full">
+    <Icon name="mingcute:download-2-line" class="size-5" />
+    Download
+  </button>
+</download-button>
+
+<script>
+  class DownloadButton extends HTMLElement {
+    connectedCallback() {
+      const url = this.dataset.resourceUrl;
+      const button = this.querySelector("button");
+
+      button?.addEventListener("click", () => {
+        // Download the resource
+      });
+    }
+  }
+
+  customElements.define("download-button", DownloadButton);
+</script>
