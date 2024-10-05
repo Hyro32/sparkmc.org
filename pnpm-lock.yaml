@@ -165,12 +165,21 @@ importers:
 
   frontend:
     dependencies:
+      '@fontsource-variable/rubik':
+        specifier: ^5.1.0
+        version: 5.1.0
+      fuse.js:
+        specifier: ^7.0.0
+        version: 7.0.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
+      react-icons:
+        specifier: ^5.3.0
+        version: 5.3.0(react@18.3.1)
       react-router-dom:
         specifier: ^6.26.2
         version: 6.26.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -626,6 +635,9 @@ packages:
   '@eslint/plugin-kit@0.2.0':
     resolution: {integrity: sha512-vH9PiIMMwvhCx31Af3HiGzsVNULDbyVkHXwlemn/B0TFj/00ho3y55efXrUZTfQipxoHC5u4xq6zblww1zm1Ig==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fontsource-variable/rubik@5.1.0':
+    resolution: {integrity: sha512-gmh3xts3ARd0ktWW/VX+MVxhJr6TxHVeGLsQEaQXDVxvuNjn5WRucfKfXK3EVN2BcgRxUe1Fctv/v9zgEd0DUg==}
 
   '@hapi/hoek@9.3.0':
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
@@ -2199,6 +2211,10 @@ packages:
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
 
+  fuse.js@7.0.0:
+    resolution: {integrity: sha512-14F4hBIxqKvD4Zz/XjDc3y94mNZN6pRv3U13Udo0lNLCWRBUsrMv2xwcF/y/Z5sV6+FQW+/ow68cHpm4sunt8Q==}
+    engines: {node: '>=10'}
+
   gauge@3.0.2:
     resolution: {integrity: sha512-+5J6MS/5XksCuXq++uFRsnUd7Ovu1XenbeuIuNRJxYWjgQbPuFhT14lAvsWfqfAmnwluf1OwMjz39HjfLPci0Q==}
     engines: {node: '>=10'}
@@ -3314,6 +3330,11 @@ packages:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
       react: ^18.3.1
+
+  react-icons@5.3.0:
+    resolution: {integrity: sha512-DnUk8aFbTyQPSkCfF8dbX6kQjXA9DktMeJqfjrg6cK9vwQVMxmcA3BfP4QoiztVmEHtwlTgLFsPuH2NskKT6eg==}
+    peerDependencies:
+      react: '*'
 
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
@@ -4521,6 +4542,8 @@ snapshots:
   '@eslint/plugin-kit@0.2.0':
     dependencies:
       levn: 0.4.1
+
+  '@fontsource-variable/rubik@5.1.0': {}
 
   '@hapi/hoek@9.3.0': {}
 
@@ -6446,6 +6469,8 @@ snapshots:
 
   function-bind@1.1.2: {}
 
+  fuse.js@7.0.0: {}
+
   gauge@3.0.2:
     dependencies:
       aproba: 2.0.0
@@ -7677,6 +7702,10 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+
+  react-icons@5.3.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   react-is@18.3.1: {}
 
