@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
-import { Resource } from 'src/resources/entities/resource.entity';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -14,22 +13,4 @@ export class User {
 
   @Column()
   avatar?: string;
-
-  @OneToMany(() => Resource, (resource) => resource.url)
-  likes?: Resource[];
-
-  @Column()
-  githubId?: string;
-
-  @Column()
-  discordId?: string;
-
-  @Column({ default: false })
-  isGithubAccount: boolean;
-
-  @Column({ default: false })
-  isDiscordAccount: boolean;
-
-  @OneToMany(() => Resource, (resource) => resource.url)
-  resources?: Resource[];
 }

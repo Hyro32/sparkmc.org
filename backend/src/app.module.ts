@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
-import { BucketsModule } from './buckets/buckets.module';
-import { PaymentsModule } from './payments/payments.module';
-import { ResourcesModule } from './resources/resources.module';
 import { UsersModule } from './users/users.module';
+import { ResourcesModule } from './resources/resources.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -17,8 +14,6 @@ import * as Joi from 'joi';
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_NAME: Joi.string().required(),
-        APPWRITE_PROJECT_ID: Joi.string().required(),
-        BUCKET_ID: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRootAsync({
@@ -35,11 +30,8 @@ import * as Joi from 'joi';
         synchronize: true,
       }),
     }),
-    AuthModule,
-    BucketsModule,
-    PaymentsModule,
-    ResourcesModule,
     UsersModule,
+    ResourcesModule,
   ],
   controllers: [],
   providers: [],

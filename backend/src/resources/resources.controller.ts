@@ -6,16 +6,10 @@ import {
   Patch,
   Param,
   Delete,
-  UseInterceptors,
-  UploadedFile,
-  ParseFilePipe,
-  MaxFileSizeValidator,
-  FileTypeValidator,
 } from '@nestjs/common';
 import { ResourcesService } from './resources.service';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('resources')
 export class ResourcesController {
@@ -31,31 +25,21 @@ export class ResourcesController {
     return this.resourcesService.findAll();
   }
 
-  @Get(':url')
-  findOne(@Param('url') url: string) {
-    return this.resourcesService.findOne(url);
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.resourcesService.findOne(+id);
   }
 
-  @Patch(':url')
-  @UseInterceptors(FileInterceptor('icon'))
+  @Patch(':id')
   update(
-    @Param('url') url: string,
+    @Param('id') id: string,
     @Body() updateResourceDto: UpdateResourceDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 1000 }),
-          new FileTypeValidator({ fileType: 'image/jpeg' }),
-        ],
-      }),
-    )
-    icon: Express.Multer.File,
   ) {
-    return this.resourcesService.update(url, updateResourceDto, icon);
+    return this.resourcesService.update(+id, updateResourceDto);
   }
 
-  @Delete(':url')
-  remove(@Param('url') url: string) {
-    return this.resourcesService.remove(url);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.resourcesService.remove(+id);
   }
 }

@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer';
 import { IsEmail, IsOptional, IsString } from 'class-validator';
-import { Resource } from 'src/resources/entities/resource.entity';
 
 export class CreateUserDto {
   @IsString()
@@ -19,16 +18,4 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   avatar?: string;
-
-  @IsString()
-  @IsOptional()
-  likes?: Resource[];
-
-  @IsString()
-  @IsOptional()
-  githubId?: string;
-
-  @IsString()
-  @IsOptional()
-  discordId?: string;
 }

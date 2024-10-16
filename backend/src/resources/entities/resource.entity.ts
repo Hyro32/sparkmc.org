@@ -1,16 +1,9 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Resource {
-  @PrimaryColumn()
+  @PrimaryColumn({ unique: true })
   url: string;
-
-  @OneToOne(() => User, (user) => user.username)
-  author: string;
-
-  @Column()
-  type: string;
 
   @Column()
   title: string;
@@ -18,33 +11,18 @@ export class Resource {
   @Column()
   description: string;
 
-  @OneToMany(() => User, (user) => user.username)
-  likes?: User[];
+  @Column()
+  author: string;
 
   @Column()
+  icon: string;
+
+  @Column({ default: 0 })
   downloads: number;
-
-  @Column()
-  about: string;
-
-  @Column()
-  icon?: string;
-
-  @Column('simple-array')
-  tags: string[];
-
-  @Column()
-  api_version: string;
-
-  @Column()
-  source?: string;
-
-  @Column()
-  support?: string;
-
-  @Column({ default: new Date() })
-  updated_at: Date;
 
   @Column({ default: new Date() })
   created_at: Date;
+
+  @Column({ default: new Date() })
+  updated_at: Date;
 }

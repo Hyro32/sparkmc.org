@@ -4,22 +4,16 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { ResourcesService } from 'src/resources/resources.service';
-import { BucketsService } from 'src/buckets/buckets.service';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
-    private readonly resourcesService: ResourcesService,
-    private readonly bucketsService: BucketsService,
   ) {}
 
   create(createUserDto: CreateUserDto): Promise<User> {
-    const { email, username, password, githubId, discordId } = createUserDto;
-    const isGithubAccount = Boolean(githubId);
-    const isDiscordAccount = Boolean(discordId);
+    const { email, username, password } = createUserDto;
     const findEmail = this.findOneByEmail(email);
     const findUsername = this.findOne(username);
 
@@ -33,19 +27,13 @@ export class UsersService {
 
     const user = this.usersRepository.create({
       ...createUserDto,
-      isGithubAccount,
-      isDiscordAccount,
     });
 
     return this.usersRepository.save(user);
   }
 
   findAll(): Promise<User[]> {
-    return this.usersRepository.find({
-      relations: {
-        resources: true,
-      },
-    });
+    return this.usersRepository.find();
   }
 
   findOne(username: string): Promise<User> {
@@ -54,14 +42,6 @@ export class UsersService {
 
   findOneByEmail(email: string): Promise<User> {
     return this.usersRepository.findOneBy({ email });
-  }
-
-  findOneByGithubId(githubId: string): Promise<User> {
-    return this.usersRepository.findOneBy({ githubId });
-  }
-
-  findOneByDiscordId(discordId: string): Promise<User> {
-    return this.usersRepository.findOneBy({ discordId });
   }
 
   async update(
@@ -76,12 +56,11 @@ export class UsersService {
       throw new BadRequestException('User already exists');
     }
 
-    const user = await this.findOne(username);
+    // const user = await this.findOne(username);
 
     if (avatar) {
-      if (user.avatar) await this.bucketsService.delete(user.avatar);
-      const avatarBucket = await this.bucketsService.upload(avatar);
-      updateUserDto.avatar = avatarBucket;
+      // TODO: remove old avatar
+      updateUserDto.avatar = avatar.filename;
     }
 
     return this.usersRepository.update(username, updateUserDto);
